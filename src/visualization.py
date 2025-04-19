@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from src.simulation import NBodySimulation
+from simulation import NBodySimulation
 
 def plot_simulation(bodies, time):
     plt.figure(figsize=(8, 8))

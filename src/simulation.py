@@ -1,5 +1,5 @@
 import numpy as np
-from src.body import Body
+from body import Body
 
 class NBodySimulation:
     def __init__(self, bodies, G=6.67430e-11):
