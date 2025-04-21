@@ -1,5 +1,6 @@
 import numpy as np
 from body import Body
+from orbital_utils import orbital_elements_to_state_vectors
 
 # Astronomical constants
 G = 6.67430e-11             # Gravitational constant, m^3 kg^-1 s^-2
@@ -94,7 +95,74 @@ def generate_equal_three_body(side_length=AU, mass=SUN_MASS):
         "resonance_ratio": None
     }
     return bodies, metadata
-    
+
+def random_multi_planet_system(
+    star_mass: float,
+    n_planets: int = 5,
+    a_min: float = 0.5e11,
+    a_max: float = 2.5e11
+):
+    """
+    Generates one star + `n_planets`, each with random
+    semi-major axis, eccentricity, and inclination.
+    Returns (bodies_list, metadata_dict).
+    """
+    bodies = []
+    # 1) Star at origin
+    star = Body(star_mass, [0,0,0], [0,0,0])
+    bodies.append(star)
+
+    # 2) Prepare metadata
+    metadata = {
+        "type": "random_multi_planet",
+        "n_planets": n_planets,
+        "elements": []
+    }
+
+    mu = G * (star_mass)  # planet masses ≪ star mass
+
+    for k in range(n_planets):
+        # sample orbital elements
+        a   = np.random.uniform(a_min, a_max)
+        e   = np.random.uniform(0.0, 0.4)           # up to e=0.4
+        inc = np.deg2rad(np.random.uniform(0, 10))  # up to 10°
+        raan  = np.random.uniform(0, 2*np.pi)
+        argp  = np.random.uniform(0, 2*np.pi)
+        M0    = np.random.uniform(0, 2*np.pi)
+        m_planet = 5.0e24  # e.g. Earth‑mass scale
+
+        # convert to cartesian
+        pos, vel = orbital_elements_to_state_vectors(
+            a, e, inc, raan, argp, M0, mu
+        )
+
+        planet = Body(m_planet, pos, vel)
+        bodies.append(planet)
+
+        # record elements
+        metadata["elements"].append({
+            "a": a,
+            "e": e,
+            "i": float(np.rad2deg(inc)),
+            "raan": float(np.rad2deg(raan)),
+            "argp": float(np.rad2deg(argp)),
+            "M0": float(np.rad2deg(M0)),
+            "mass": m_planet
+        })
+
+    return bodies, metadata
+
+
+def generate_all_random(n_systems=3, **kwargs):
+    """
+    Generate N different random multi‑planet systems.
+    """
+    scenarios = []
+    for _ in range(n_systems):
+        bodies, meta = random_multi_planet_system(**kwargs)
+        scenarios.append((bodies, meta))
+    return scenarios
+
 
 def generate_all_scenarios():
     return [

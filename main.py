@@ -5,6 +5,9 @@ from src.visualization import plot_simulation
 from src.visualization import animate_orbits
 import numpy as np
 
+from src.scenario_generator import random_multi_planet_system
+from src.visualization3d import animate_3d
+
 def main():
     """
     earth_mass = 5.972e24
@@ -28,7 +31,7 @@ def main():
             plot_simulation(bodies, step*dt)
     """  
 
-
+    """
     earth_mass = 5.972e24
     sun_mass = 1.989e30
     mars_mass = 5.972e24
@@ -42,6 +45,7 @@ def main():
     num_steps = 365  # one year
 
     animate_orbits(bodies, num_steps, dt)
+    """
  
     """
     earth_mass = 5.972e24
@@ -80,6 +84,20 @@ def main():
     velocities_df.to_csv('data/velocities.csv', index=False)
     energies_df.to_csv('data/energies.csv', index=False)
     """
+
+    bodies, meta = random_multi_planet_system(
+        star_mass=1.989e30,
+        n_planets=5,
+        a_min=0.8e11,
+        a_max=3.0e11
+    )
+    print("Scenario:", meta)
+
+    sim = NBodySimulation(bodies)
+    dt = 60*60*24        # one day
+    steps = 365          # one year
+
+    animate_3d(bodies, sim, dt, steps)
 
 if __name__ == "__main__":
     main()
