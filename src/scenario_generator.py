@@ -153,6 +153,78 @@ def random_multi_planet_system(
     return bodies, metadata
 
 
+def close_encounter_system(
+    star_mass: float,
+    planet_mass: float = 5e24,
+    a1: float = 1.0e11,
+    a2: float = 1.5e11,
+    delta_v: float = 500.0
+):
+    """
+    Two planets on initially circular coplanar orbits, but give
+    the outer one a kick so that it will have a close encounter.
+    """
+    # star
+    bodies = [Body(star_mass, [0,0,0], [0,0,0])]
+
+    mu = G * star_mass
+    # inner planet: circular
+    r1, v1 = orbital_elements_to_state_vectors(a1, 0.0, 0.0, 0.0, 0.0, 0.0, mu)
+    p1 = Body(planet_mass, r1, v1)
+    bodies.append(p1)
+
+    # outer planet: circular + small extra radial kick
+    r2, v2 = orbital_elements_to_state_vectors(a2, 0.0, 0.0, 0.0, 0.0, 0.0, mu)
+    v2 = v2 + np.array([0, delta_v, 0])  # perturb in y-direction
+    p2 = Body(planet_mass, r2, v2)
+    bodies.append(p2)
+
+    metadata = {
+        "type": "close_encounter",
+        "a1": a1,
+        "a2": a2,
+        "delta_v": delta_v
+    }
+    return bodies, metadata
+
+
+def resonant_drift_system(
+    star_mass: float,
+    planet_mass: float = 5e24,
+    a_inner: float = 1.0e11,
+    resonance_ratio: float = 1.5  # e.g. 3:2 when =1.5
+):
+    """
+    Two planets whose periods differ only slightly from exact resonance,
+    so that resonant interactions will build over time.
+    """
+    bodies = [Body(star_mass, [0,0,0], [0,0,0])]
+    mu = G * star_mass
+
+    # exact circular inner
+    r1, v1 = orbital_elements_to_state_vectors(
+        a_inner, 0.0, 0.0, 0.0, 0.0, 0.0, mu
+    )
+    p1 = Body(planet_mass, r1, v1)
+    bodies.append(p1)
+
+    # outer at near resonance
+    a_outer = a_inner * (resonance_ratio)**(2/3) * 1.01
+    r2, v2 = orbital_elements_to_state_vectors(
+        a_outer, 0.0, 0.0, 0.0, 0.0, 0.0, mu
+    )
+    p2 = Body(planet_mass, r2, v2)
+    bodies.append(p2)
+
+    metadata = {
+        "type": "resonant_drift",
+        "a_inner": a_inner,
+        "a_outer": a_outer,
+        "target_ratio": resonance_ratio
+    }
+    return bodies, metadata
+
+
 def generate_all_random(n_systems=3, **kwargs):
     """
     Generate N different random multi‑planet systems.

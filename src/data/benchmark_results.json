@@ -1,0 +1,74 @@
+[
+  {
+    "index": 0,
+    "n_truth_events": 0,
+    "true_period": null,
+    "bls": {
+      "period": 3.0415083016603317,
+      "duration": 0.045,
+      "t0": 0.853,
+      "depth": 0.00022336780358017997,
+      "power": 1.4967952702870158e-07
+    },
+    "tls": {
+      "period": null,
+      "duration": null,
+      "t0": null,
+      "depth": null,
+      "snr": null,
+      "error": "zero-size array to reduction operation minimum which has no identity"
+    },
+    "failure": {
+      "missed_transits": false,
+      "wrong_periodicity": null
+    }
+  },
+  {
+    "index": 1,
+    "n_truth_events": 0,
+    "true_period": null,
+    "bls": {
+      "period": 4.094418883776755,
+      "duration": 0.095,
+      "t0": 2.6655,
+      "depth": 0.00014475942853530325,
+      "power": 1.0477646074933783e-07
+    },
+    "tls": {
+      "period": null,
+      "duration": null,
+      "t0": null,
+      "depth": null,
+      "snr": null,
+      "error": "zero-size array to reduction operation minimum which has no identity"
+    },
+    "failure": {
+      "missed_transits": false,
+      "wrong_periodicity": null
+    }
+  },
+  {
+    "index": 2,
+    "n_truth_events": 0,
+    "true_period": null,
+    "bls": {
+      "period": 2.6058211642328466,
+      "duration": 0.07,
+      "t0": 1.1345,
+      "depth": 0.00013273445833774904,
+      "power": 8.809218215107818e-08
+    },
+    "tls": {
+      "period": null,
+      "duration": null,
+      "t0": null,
+      "depth": null,
+      "snr": null,
+      "error": "zero-size array to reduction operation minimum which has no identity"
+    },
+    "failure": {
+      "missed_transits": false,
+      "wrong_periodicity": null
+    }
+  }
+]

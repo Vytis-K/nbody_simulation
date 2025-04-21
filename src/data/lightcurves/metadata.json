@@ -1,0 +1,56 @@
+[
+  {
+    "scenario_index": 0,
+    "lightcurve_file": "data/lightcurves/lc_0.csv",
+    "events_file": "data/lightcurves/events_0.json",
+    "type": "random_multi_planet",
+    "n_planets": 3,
+    "elements": [
+      {
+        "a": 90633994136.43776,
+        "e": 0.3499802076743942,
+        "i": 2.440446493449784,
+        "raan": 255.44066729111057,
+        "argp": 181.23676984193273,
+        "M0": 325.7802624263644,
+        "mass": 5e+24
+      },
+      {
+        "a": 170658268527.26352,
+        "e": 0.08563757611331257,
+        "i": 6.410029219150236,
+        "raan": 22.79092363732868,
+        "argp": 94.2115361810744,
+        "M0": 30.233542525972965,
+        "mass": 5e+24
+      },
+      {
+        "a": 155987846085.70563,
+        "e": 0.37678637062841397,
+        "i": 6.384688947572116,
+        "raan": 212.52291694257002,
+        "argp": 96.87628383968419,
+        "M0": 297.10970906137607,
+        "mass": 5e+24
+      }
+    ]
+  },
+  {
+    "scenario_index": 1,
+    "lightcurve_file": "data/lightcurves/lc_1.csv",
+    "events_file": "data/lightcurves/events_1.json",
+    "type": "close_encounter",
+    "a1": 100000000000.0,
+    "a2": 150000000000.0,
+    "delta_v": 500.0
+  },
+  {
+    "scenario_index": 2,
+    "lightcurve_file": "data/lightcurves/lc_2.csv",
+    "events_file": "data/lightcurves/events_2.json",
+    "type": "resonant_drift",
+    "a_inner": 100000000000.0,
+    "a_outer": 160327506248.78815,
+    "target_ratio": 2.0
+  }
+]
