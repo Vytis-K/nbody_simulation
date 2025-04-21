@@ -1,0 +1,15 @@
+# Core numerical & data libs
+numpy<2.0
+pandas>=1.0
+
+# Plotting & 3D animation
+matplotlib>=3.0
+
+# Astronomy‑specific time‑series (BLS) 
+astropy>=5.0
+
+# Transit Least Squares (TLS) & its deps
+transitleastsquares>=1.3
+
+# (Optional) for running tests in your tests/ folder
+pytest>=7.0
